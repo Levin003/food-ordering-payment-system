@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <link rel="stylesheet" href="style.css">  
+</head>
+<body>
+    <h1>Menu</h1>
+
+    <!-- Beverages -->
+    <h2>Beverages</h2>
+    <ul>
+        <li class="menuItem" onclick="showItemDetails('Coffee', 'images\cofee.jpg', 40)">
+            <img src="images\cofee.jpg.jpg" alt="Coffee">Coffee - sh 40
+        </li>
+        <li class="menuItem" onclick="showItemDetails('Tea', 'images\tea.jpg', 30)">
+            <img src="images\tea.jpg" alt="Tea">Tea - sh 30
+        </li>
+        <li class="menuItem" onclick="showItemDetails('Juice', 'images\juice.jpg', 50)">
+            <img src="images\juice.jpg" alt="Juice">Juice - sh 50
+        </li>
+    </ul>
+
+     <!-- Meals -->
+     <h2>Meals</h2>
+     <ul>
+         <li class="menuItem" onclick="showItemDetails('Pilau', 'images\pilau.jpg', 100)">
+             <img src="images\pilau.jpg" alt="Pilau">Pilau - sh 100
+         </li>
+         <li class="menuItem" onclick="showItemDetails('Rice', 'images\rice.jpg', 50)">
+             <img src="images\rice.jpg" alt="Rice">Rice - sh 50
+         </li>S
+         <li class="menuItem" onclick="showItemDetails('Ugali', 'images\ugali.jpg', 50)">
+             <img src="images\ugali.jpg" alt="Ugali">Ugali- sh 50
+         </li>
+         <li class="menuItem" onclick="showItemDetails('Pizza', 'images\pizza.jpg', 100)">
+            <img src="images\pizza.jpg" alt="Pizza">Pizza - sh 100
+        </li>
+        <li class="menuItem" onclick="showItemDetails('Spagetti', 'images\Spagetti.jpg', 100)">
+            <img src="images\Spagetti.jpg" alt="Spagetti">Spagetti - sh 100
+        </li>
+     </ul>
+
+     <!-- Stews -->
+     <h2>Stews</h2>
+     <ul>
+         <li class="menuItem" onclick="showItemDetails('Chicken ', 'images\chicken stew.jpg', 100)">
+             <img src="images\chicken stew.jpg" alt="Chicken">Chicken - sh 100
+         </li>
+         <li class="menuItem" onclick="showItemDetails('Fish', 'images\fish stew.jpg', 100)">
+             <img src="images\fish stew.jpg" alt="Fish">Fish - sh 100
+         </li>
+         <li class="menuItem" onclick="showItemDetails('Beef', 'images\beef stew.jpg', 100)">
+             <img src="images\beef stew.jpg" alt="Beef">Beef - sh 100
+         </li>
+     </ul>
+
+      <!-- snacks -->
+    <h2>Snacks</h2>
+    <ul>
+        <li class="menuItem" onclick="showItemDetails('french fries', 'french fries.jpg', 100)">
+            <img src="coffee.jpg" alt="french fries">french fries - sh 100
+        </li>
+        <li class="menuItem" onclick="showItemDetails('Cake', 'images\cake.jpg', 40)">
+            <img src="images\cake.jpg" alt="Cake">cake - sh 40
+        </li>
+        <li class="menuItem" onclick="showItemDetails('Cookies', 'Cookies.jpg', 20)">
+            <img src="cookies.jpg" alt="Cookies">Cookies - sh 20
+        </li>
+    </ul>
+
+    <!-- Full Item Details -->
+    <div id="itemDetails" style="display: none;">
+        <h2 id="itemName"></h2>
+        <img id="itemImage" src="" alt="Item Image">
+        <p id="itemPrice"></p>
+        <button onclick="addToCart()">Add to Cart</button>
+    </div>
+
+    <!-- Add to Cart button -->
+    <div id="addToCartButton">
+        <button onclick="addToCart()">Add to Cart</button>
+    </div>
+
+    <!-- Shopping Cart -->
+    <div id="cart" style="display: none;">
+        <h2>Shopping Cart</h2>
+        <ul id="cartItems"></ul>
+        <button onclick="checkout()">Checkout</button>
+    </div>
+    
+    <script>
+        function showItemDetails(name, imageSrc, price) {
+            document.getElementById("itemName").innerText = name;
+            document.getElementById("itemImage").src = imageSrc;
+            document.getElementById("itemPrice").innerText = "Price: sh " + price;
+            document.getElementById("itemDetails").style.display = "block";
+        }
+
+        function addToCart() {
+            var itemName = document.getElementById("itemName").innerText;
+            var itemPrice = document.getElementById("itemPrice").innerText;
+            var cartItems = document.getElementById("cartItems");
+            var newItem = document.createElement("li");
+            newItem.innerText = itemName + " - " + itemPrice;
+            cartItems.appendChild(newItem);
+            document.getElementById("itemDetails").style.display = "none";
+            document.getElementById("cart").style.display = "block";
+        }
+
+        function checkout() {
+            var cartItems = document.getElementById("cartItems").getElementsByTagName("li");
+            var orderItems = [];
+    
+            // Extract order items from the cart
+            for (var i = 0; i < cartItems.length; i++) {
+                var itemText = cartItems[i].innerText;
+                var itemName = itemText.split(" - ")[0];
+                var itemPrice = itemText.split(" - ")[1];
+                orderItems.push({ name: itemName, price: itemPrice });
+            }
+    
+            // Send order data to server
+            fetch('https://example.com/checkout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ items: orderItems })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to send order. Please try again.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                alert("Thank you for your order! Your order ID is: " + data.orderId);
+                document.getElementById("cartItems").innerHTML = "";
+                document.getElementById("cart").style.display = "none";
+            })
+            .catch(error => {
+                alert(error.message);
+            });
+        }
+    </script>
+    
+</body>
+</html>

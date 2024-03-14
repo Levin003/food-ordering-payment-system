@@ -1,0 +1,105 @@
+/* styles.css */
+
+body {
+    background-color: mintgreen; /* Set background color to powder blue */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+header nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+header nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+main {
+    padding: 20px;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    margin-top: 150px; /* Add margin to the top */
+    margin-bottom: 200px; /* Add margin to the bottom */
+}
+
+section {
+    text-align: center;
+}
+
+section img {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 20px;
+}
+
+.menu-items {
+    display: flex;
+    flex-wrap: nowrap; /* Ensure items stay in a single line */
+    overflow-x: auto; /* Allow horizontal scrolling */
+    white-space: nowrap; /* Prevent items from wrapping */
+    margin-bottom: 20px;
+}
+
+.menuItem {
+    cursor: pointer;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+ul {
+    list-style-type: none; /* Remove bullets */
+    padding: 0;
+}
+.menuItem {
+    cursor: pointer;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    display: flex; /* Use flexbox for layout */
+    align-items: vertically; /* Align items vertically */
+    background-color: mintgreen; /* Set the background color to mint green */
+   
+}
+.menuItem img {
+    width: 50px; /* Adjust image width as needed */
+    margin-right: 10px; /* Add spacing between image and text */
+}
+
+/* Your existing CSS styles */
+
+#addToCartButton {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 999; /* Ensure it's above other content */
+}
+
+#cart {
+    position: fixed;
+    bottom: 80px; /* Adjust as needed */
+    right: 20px;
+    display: none;
+    z-index: 999; /* Ensure it's above other content */
+}
